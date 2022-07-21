@@ -13,7 +13,6 @@ import Words from './data/words.json'
 
 
 function App() {
-  const [loading, setLoading] = useState(true)
   const [puzzleWord, setPuzzleWord] = useState()
   const [usedLetters, setUsedLetters] = useState([])
   const [solution, setSolution] = useState(' ')
@@ -21,18 +20,15 @@ function App() {
 
   useEffect(() => {
     const randomWord = async () => {
-      setLoading(true)
       try {
         const API_URL = 'https://random-word-api.herokuapp.com/word'
         const newWord = await axios.get(API_URL)
         const word = newWord.data[0]
         setPuzzleWord(word)
         setSolution(word.replace(/[A-Za-z]/g, '_'))
-
       } catch (error) {
         console.error(error.message)
       }
-      setLoading(false);
     }
     randomWord();
   }, [])
